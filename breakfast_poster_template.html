@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wisdom Wealth International School - Breakfast Poster</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* Hallmark · macrostructure: Poster Card · theme: Warm Terracotta & Oat · nav: Minimal Masthead · footer: Signature Stamp */
+    /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 */
+
+    :root {
+      /* OKLCH Color Tokens - Hallmark Discipline */
+      --color-paper: oklch(97.5% 0.016 78);
+      --color-paper-card: oklch(99.5% 0.005 85);
+      --color-paper-tint: oklch(95.5% 0.028 72);
+
+      --color-ink: oklch(20% 0.03 50);
+      --color-ink-muted: oklch(42% 0.022 55);
+      --color-ink-light: oklch(60% 0.018 60);
+
+      --color-accent-amber: oklch(72% 0.18 55);
+      --color-accent-terracotta: oklch(58% 0.20 38);
+      --color-accent-green: oklch(60% 0.16 142);
+      --color-accent-gold: oklch(78% 0.16 85);
+
+      --color-border: oklch(90% 0.025 75);
+      --color-border-accent: oklch(82% 0.06 50);
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-heading: 'Outfit', -apple-system, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-handwriting: 'Caveat', cursive;
+
+      --shadow-soft: 0 8px 24px -4px oklch(20% 0.03 50 / 0.08);
+      --shadow-card: 0 16px 40px -8px oklch(20% 0.03 50 / 0.12);
+      --shadow-glow: 0 0 50px oklch(68% 0.18 55 / 0.15);
+    }
+
+    /* Color Theme Variations */
+    .theme-botanical {
+      --color-paper: oklch(97% 0.015 135);
+      --color-paper-card: oklch(99.5% 0.006 135);
+      --color-paper-tint: oklch(95% 0.03 135);
+      --color-accent-terracotta: oklch(54% 0.17 142);
+      --color-border-accent: oklch(82% 0.06 140);
+    }
+
+    .theme-saffron {
+      --color-paper: oklch(97% 0.025 85);
+      --color-paper-card: oklch(99.6% 0.008 85);
+      --color-paper-tint: oklch(94.5% 0.04 80);
+      --color-accent-terracotta: oklch(65% 0.20 60);
+      --color-border-accent: oklch(84% 0.08 75);
+    }
+
+    .theme-royal {
+      --color-paper: oklch(97% 0.012 250);
+      --color-paper-card: oklch(99.5% 0.005 250);
+      --color-paper-tint: oklch(94.8% 0.025 250);
+      --color-accent-terracotta: oklch(52% 0.18 260);
+      --color-border-accent: oklch(82% 0.06 250);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #121316;
+      color: var(--color-ink);
+      font-family: var(--font-body);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== CONTROLS TOOLBAR (Outside Canvas - Hidden in Print/Screenshot) ===== */
+    .toolbar {
+      width: 100%;
+      max-width: 1080px;
+      background: #1e2026;
+      border: 1px solid #2d313b;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .toolbar-title {
+      color: #f0f0f5;
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar-title span.badge {
+      background: rgba(239, 159, 39, 0.2);
+      color: #ef9f27;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      border: 1px solid rgba(239, 159, 39, 0.4);
+      text-transform: uppercase;
+    }
+
+    .dish-selector-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .dish-selector-wrap label {
+      color: #9aa0b0;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .dish-select {
+      background: #121316;
+      color: #ffffff;
+      border: 1px solid #3f4556;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      flex: 1;
+      transition: all 0.2s ease;
+    }
+
+    .dish-select:focus {
+      border-color: #ef9f27;
+      box-shadow: 0 0 0 2px rgba(239, 159, 39, 0.25);
+    }
+
+    .theme-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.15);
+    }
+
+    .theme-btn.active {
+      border-color: #ffffff;
+      transform: scale(1.1);
+    }
+
+    .theme-btn.t-terracotta {
+      background: linear-gradient(135deg, #d85a30, #fbf6e8);
+    }
+
+    .theme-btn.t-botanical {
+      background: linear-gradient(135deg, #2e7d32, #e8f5e9);
+    }
+
+    .theme-btn.t-saffron {
+      background: linear-gradient(135deg, #f57f17, #fffde7);
+    }
+
+    .theme-btn.t-royal {
+      background: linear-gradient(135deg, #1565c0, #e3f2fd);
+    }
+
+    .action-btn {
+      background: #ef9f27;
+      color: #121316;
+      border: none;
+      border-radius: 10px;
+      padding: 9px 16px;
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: #f5b041;
+      transform: translateY(-1px);
+    }
+
+    /* Responsive Stage Scaling for Display */
+    .stage-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 1080px;
+      overflow: auto;
+      padding-bottom: 40px;
+    }
+
+    /* ===== MAIN POSTER CANVAS (1080px x 1080px Instagram Square Ready) ===== */
+    .poster {
+      width: 595px;
+      height: 940px;
+      min-width: 595px;
+      min-height: 940px;
+      background-color: var(--color-paper);
+      position: relative;
+      border-radius: 0px;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: 36px 44px 32px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-card);
+      transition: background-color 0.4s ease;
+      background-image:
+        radial-gradient(circle at 10% 10%, oklch(99% 0.03 70 / 0.6) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, oklch(95% 0.04 50 / 0.4) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, transparent 60%, oklch(92% 0.02 75 / 0.3) 100%);
+    }
+
+    /* Outer Framed Border */
+    .poster-inner-frame {
+      position: absolute;
+      inset: 16px;
+      border: 2px solid var(--color-border-accent);
+      border-radius: 24px;
+      pointer-events: none;
+      opacity: 0.7;
+      z-index: 1;
+    }
+
+    .poster-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ===== HEADER MASTHEAD ===== */
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-bottom: 12px;
+      border-bottom: 2px dashed var(--color-border);
+    }
+
+    .school-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .school-logo-badge {
+      width: 100px;
+      height: 100px;
+      border-radius: 18px;
+      background: var(--color-paper-card);
+      border: 2.5px solid var(--color-accent-terracotta);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      padding: 6px;
+    }
+
+    .school-logo-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .school-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .school-name {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--color-ink);
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .school-tagline {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-accent-terracotta);
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* Good Evening Pill */
+    .greeting-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--color-paper-card);
+      border: 1.5px solid var(--color-border-accent);
+      padding: 8px 18px;
+      border-radius: 50px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .greeting-sun {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #ffe082, #ffb300);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(255, 179, 0, 0.4);
+    }
+
+    .greeting-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .greeting-text .salutation {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-ink);
+      line-height: 1.1;
+    }
+
+    .greeting-text .sub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-ink-muted);
+    }
+
+    /* ===== DISH HEADLINE SECTION ===== */
+    .headline-section {
+      text-align: center;
+      margin-top: 8px;
+      margin-bottom: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--color-paper-tint);
+      color: var(--color-accent-terracotta);
+      border: 1px solid var(--color-border-accent);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .dish-title-main {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--color-ink);
+      letter-spacing: -0.5px;
+      line-height: 1.05;
+      margin: 0;
+      text-transform: uppercase;
+      text-shadow: 0 2px 4px oklch(20% 0.03 50 / 0.05);
+    }
+
+    .accompaniment-tag {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-paper-card);
+      border: 1.5px solid var(--color-border-accent);
+      padding: 5px 18px;
+      border-radius: 18px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-accent-terracotta);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* ===== HERO FOOD IMAGE STAGE ===== */
+    .food-ingredients-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 12px;
+    }
+
+    .food-stage {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .food-backdrop-glow {
+      position: absolute;
+      width: 98%;
+      height: 96%;
+      background: radial-gradient(circle, var(--color-paper-tint) 0%, transparent 75%);
+      border-radius: 28px;
+      z-index: 1;
+      filter: blur(10px);
+    }
+
+    .food-card-frame {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      isolation: isolate;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      clip-path: inset(0 round 12px);
+      background: #FBF6E8;
+      border: none;
+      box-shadow: var(--shadow-card), 0 0 0 1.5px var(--color-border-accent);
+    }
+
+    .food-image {
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      object-position: center;
+      border-radius: inherit;
+      display: block;
+      filter: brightness(1.02) contrast(1.04);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .food-card-frame:hover .food-image {
+      transform: scale(1.03);
+    }
+
+    /* ===== KEY INGREDIENTS SECTION ===== */
+    .ingredients-card {
+      background: var(--color-paper-card);
+      border: 1.5px solid var(--color-border-accent);
+      border-radius: 18px;
+      padding: 10px 18px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .ingredients-label {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-accent-terracotta);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ingredients-pills {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 8px;
+      flex: 1;
+    }
+
+    .ingredient-pill {
+      background: var(--color-paper-tint);
+      border: 1px solid var(--color-border-accent);
+      color: var(--color-ink);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 16px;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    /* ===== HEALTH BENEFITS SECTION ===== */
+    .health-benefits-card {
+      background: var(--color-paper-card);
+      border: 1.5px solid var(--color-border-accent);
+      border-radius: 18px;
+      padding: 12px 20px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .health-benefits-header {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-accent-terracotta);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .health-benefits-text {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-ink);
+      line-height: 1.4;
+    }
+
+    /* ===== FOOTER SIGN-OFF ===== */
+    .poster-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-top: 10px;
+      border-top: 2px dashed var(--color-border);
+      flex-shrink: 0;
+    }
+
+    .footer-motto {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .motto-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-paper-tint);
+      border: 1px solid var(--color-border-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .motto-text {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-ink-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .signoff-stamp {
+      background: var(--color-paper-card);
+      border: 2.5px solid var(--color-accent-terracotta);
+      padding: 6px 14px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .signoff-text {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--color-accent-terracotta);
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    /* PRINT & EXPORT STYLING */
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+
+      .toolbar {
+        display: none !important;
+      }
+
+      .stage-wrapper {
+        padding: 0;
+      }
+
+      .poster {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== INTERACTIVE CONTROL TOOLBAR ===== -->
+  <div class="toolbar">
+    <div class="toolbar-title">
+      <span>Wisdom Wealth Poster Generator</span>
+      <span class="badge">Hallmark Edition</span>
+    </div>
+
+    <div class="dish-selector-wrap">
+      <label for="dishSelect">Select Dish:</label>
+      <select id="dishSelect" class="dish-select" onchange="switchDish(this.value)">
+        <option value="Ragi_Dosa">Ragi Dosa with Coconut & Tomato Chutney</option>
+        <option value="Wheat_Dosa_with_Coconut_Chutney">Wheat Dosa with Coconut Chutney</option>
+        <option value="Poha_with_Nuts">Poha with Nuts & Fresh Herbs</option>
+        <option value="Idiyapam">Idiyappam with Coconut Milk & Stew</option>
+        <option value="Drumstick_Stew">Nutritious Drumstick Stew</option>
+        <option value="Fermented_Rice">Traditional Fermented Rice (Neeragaram)</option>
+        <option value="Bread_Omelette">Classic Bread Omelette</option>
+        <option value="Millet_Porridge">Wholesome Millet Porridge</option>
+        <option value="Moong_Dal_Chilla">Moong Dal Chilla with Mint Chutney</option>
+        <option value="Paneer_Bhurji">Protein-Rich Paneer Bhurji</option>
+        <option value="Ragi_Upma">Ragi Upma with Roasted Cashews</option>
+        <option value="Salad">Fresh Garden Salad Bowl</option>
+        <option value="Soups_with_Veggies">Veggie Harvest Soup with Toast</option>
+        <option value="Steamed_Sprouts">Steamed Power Sprouts</option>
+      </select>
+    </div>
+
+    <div class="theme-controls">
+      <span style="color:#9aa0b0; font-size:12px; font-weight:600; margin-right:4px;">Theme:</span>
+      <button class="theme-btn t-terracotta active" onclick="setTheme('', this)" title="Warm Terracotta"></button>
+      <button class="theme-btn t-botanical" onclick="setTheme('theme-botanical', this)"
+        title="Botanical Green"></button>
+      <button class="theme-btn t-saffron" onclick="setTheme('theme-saffron', this)" title="Saffron Gold"></button>
+      <button class="theme-btn t-royal" onclick="setTheme('theme-royal', this)" title="Royal Blue"></button>
+    </div>
+
+    <button class="action-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2" />
+        <path d="M6 14h12v8H6z" />
+      </svg>
+      Print / Export PDF
+    </button>
+  </div>
+
+  <!-- ===== POSTER DISPLAY STAGE ===== -->
+  <div class="stage-wrapper">
+
+    <div class="poster" id="posterCanvas">
+
+      <!-- Outer Border Frame -->
+      <div class="poster-inner-frame"></div>
+
+      <div class="poster-content">
+
+        <!-- ===== TOP MASTHEAD ===== -->
+        <header class="masthead">
+          <div class="school-brand">
+            <div class="school-logo-badge">
+              <img src="logo.png" alt="Wisdom Wealth International School Logo">
+            </div>
+            <div class="school-info">
+              <h2 class="school-name">Wisdom Wealth International School</h2>
+              <span class="school-tagline">Nurturing Minds • Building Health</span>
+            </div>
+          </div>
+
+          <div class="greeting-badge">
+            <div class="greeting-sun">☀️</div>
+            <div class="greeting-text">
+              <span class="salutation">Good Evening!</span>
+              <span class="sub">Today's Special Breakfast</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- ===== HEADLINE SECTION ===== -->
+        <section class="headline-section">
+          <div class="eyebrow-pill">
+            <span>✨</span> Daily Healthy Menu <span>✨</span>
+          </div>
+
+          <!-- {{DISH_NAME}} -->
+          <h1 class="dish-title-main" id="dishTitle">RAGI DOSA</h1>
+
+          <!-- {{ACCOMPANIMENT}} -->
+          <div class="accompaniment-tag" id="dishAccompaniment">
+            <span>🥗</span> Served with Fresh Coconut & Tomato Chutney
+          </div>
+        </section>
+
+        <!-- ===== HERO FOOD IMAGE & KEY INGREDIENTS ===== -->
+        <div class="food-ingredients-container">
+          <div class="food-stage">
+            <div class="food-backdrop-glow"></div>
+
+            <div class="food-card-frame">
+              <!-- {{FOOD_IMAGE_PATH}} -->
+              <img class="food-image" id="foodImage"
+                src="attachments/full dish photos/ragi dosa/_ragi dosa_ragi_dosa_1.jpg_.png"
+                alt="Today's Breakfast - Ragi Dosa">
+            </div>
+          </div>
+
+          <!-- ===== KEY INGREDIENTS SECTION ===== -->
+          <div class="ingredients-card">
+            <div class="ingredients-label">
+              <span>🌿</span> Key Ingredients:
+            </div>
+            <div class="ingredients-pills" id="dishIngredients">
+              <span class="ingredient-pill">Finger Millet (Ragi)</span>
+              <span class="ingredient-pill">Urad Dal</span>
+              <span class="ingredient-pill">Fresh Coconut</span>
+              <span class="ingredient-pill">Ripe Tomatoes</span>
+              <span class="ingredient-pill">Curry Leaves</span>
+              <span class="ingredient-pill">Mustard Seeds</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== HEALTH BENEFITS SECTION ===== -->
+        <div class="health-benefits-card">
+          <div class="health-benefits-header">
+            <span>❤️</span> Health Benefits
+          </div>
+          <p class="health-benefits-text" id="dishDescription">
+            Full of calcium, iron, and fiber! It gives children strong bones and steady energy to stay focused all
+            morning.
+          </p>
+        </div>
+
+        <!-- ===== FOOTER SIGN-OFF ===== -->
+        <footer class="poster-footer">
+          <div class="footer-motto">
+            <div class="motto-icon">🌾</div>
+            <span class="motto-text">Healthy Breakfast • Healthy Mind • Happy Learning</span>
+          </div>
+
+          <!-- {{SIGNOFF}} -->
+          <div class="signoff-stamp" id="dishSignoff">
+            <span class="signoff-text" id="signoffText">Have a Great Day! 🌟</span>
+          </div>
+        </footer>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Database of All Breakfast Items in Attachments with Ingredients
+    // Database of All Breakfast Items in Attachments with Ingredients
+    const breakfastDatabase = {
+      "Ragi_Dosa": {
+        title: "RAGI DOSA",
+        accompaniment: "Served with Fresh Coconut & Tomato Chutney",
+        image: "attachments/full dish photos/ragi dosa/_ragi dosa_ragi_dosa_1.jpg_.png",
+        description: "Full of calcium, iron, and fiber! It gives children strong bones and steady energy to stay focused all morning.",
+        ingredients: ["Finger Millet (Ragi)", "Urad Dal", "Fresh Coconut", "Ripe Tomatoes", "Curry Leaves", "Mustard Seeds"]
+      },
+      "Wheat_Dosa_with_Coconut_Chutney": {
+        title: "WHEAT DOSA",
+        accompaniment: "Served with Creamy Coconut Chutney",
+        image: "attachments/full dish photos/wheat dosa + coconut chutney/images.jpe",
+        description: "Healthy wheat dosas with tasty coconut chutney. It gives kids strong energy to play and learn!",
+        ingredients: ["Whole Wheat Flour", "Fresh Coconut", "Green Chilies", "Ginger", "Cumin Seeds", "Curry Leaves"]
+      },
+      "Poha_with_Nuts": {
+        title: "POHA WITH NUTS",
+        accompaniment: "Served with Crunchy Peanuts & Mint Chutney",
+        image: "attachments/full dish photos/poha +nuts/_poha +nuts_poha_nuts_1.jpg_,.png",
+        description: "Light rice flakes mixed with crunchy nuts. It is easy on the tummy and packed with healthy vitamins and iron!",
+        ingredients: ["Flattened Rice (Poha)", "Roasted Peanuts", "Cashews", "Mustard Seeds", "Turmeric", "Fresh Coriander"]
+      },
+      "Idiyapam": {
+        title: "IDIYAPPAM",
+        accompaniment: "Served with Fresh Coconut Milk & Vegetable Stew",
+        image: "attachments/full dish photos/idiyapam/_idiyapam_idiyapam_1.jpg_.png",
+        description: "Soft steamed rice noodles with warm coconut stew. It is gentle on the tummy and very comforting!",
+        ingredients: ["Steamed Rice Flour", "Fresh Coconut Milk", "Green Cardamom", "Garden Vegetables", "Curry Leaves"],
+        signoff: "Have a Great Day! 🌟"
+      },
+      "Drumstick_Stew": {
+        title: "DRUMSTICK STEW",
+        accompaniment: "Served with Soft Steamed Rice Cakes",
+        image: "attachments/full dish photos/drumstick stew/_drumstick stew_drumstick_stew_2.jpg_,.png",
+        description: "A healthy Moringa vegetable soup. It builds strong immunity so children stay healthy and strong!",
+        ingredients: ["Fresh Moringa Drumsticks", "Yellow Toor Dal", "Tomatoes", "Shallots", "Turmeric", "Garlic", "Cumin"]
+      },
+      "Fermented_Rice": {
+        title: "FERMENTED RICE",
+        accompaniment: "Traditional Neeragaram with Small Onions & Buttermilk",
+        image: "attachments/full dish photos/fermented rice (ice biriyani)/_fermented rice (ice..._fermented_rice_2.jpg_,.png",
+        description: "A cooling traditional rice drink. It keeps kids well-hydrated, cool, and full of fresh energy all day!",
+        ingredients: ["Parboiled Rice", "Pure Water", "Fresh Buttermilk", "Small Shallots", "Green Chilies", "Curry Leaves"]
+      },
+      "Bread_Omelette": {
+        title: "BREAD OMELETTE",
+        accompaniment: "Served with Herbs & Toasted Whole Grain Bread",
+        image: "attachments/full dish photos/bread omlete/_bread omlete_bread_omlete_1.jpg_,.png",
+        description: "A tasty protein-rich breakfast! Helps kids build strong muscles and stay active all day long.",
+        ingredients: ["Whole Wheat Bread", "Farm Fresh Eggs / Veg Protein", "Onions", "Tomatoes", "Green Chilies", "Fresh Parsley"]
+      },
+      "Millet_Porridge": {
+        title: "MILLET PORRIDGE",
+        accompaniment: "Served with Organic Jaggery & Dry Fruits",
+        image: "attachments/full dish photos/milet porridge + pickles/_milet porridge +..._millet_porridge_1.jpg_,.png",
+        description: "Wholesome millet grains cooked with sweet jaggery. Gives long-lasting energy to play and study!",
+        ingredients: ["Foxtail Millet", "Pearl Millet", "Organic Jaggery", "Almonds", "Pistachios", "Cardamom"]
+      },
+      "Moong_Dal_Chilla": {
+        title: "MOONG DAL CHILLA",
+        accompaniment: "Served with Zesty Coriander Mint Chutney",
+        image: "attachments/full dish photos/Moong Dal Chilla/_Moong Dal Chilla_moong_dal_chilla_1.jpg_,.png",
+        description: "Golden lentil pancakes filled with healthy plant protein. Great for healthy growth and happy tummies!",
+        ingredients: ["Yellow Moong Dal", "Fresh Spinach", "Ginger", "Green Chilies", "Cumin Seeds", "Coriander"]
+      },
+      "Paneer_Bhurji": {
+        title: "PANEER BHURJI",
+        accompaniment: "Served with Soft Whole Wheat Roti",
+        image: "attachments/full dish photos/Paneer Bhurji/_Paneer Bhurji_paneer_bhurji_3.jpg_,.png",
+        description: "Fresh scrambled paneer full of protein and calcium. Helps grow strong bones and healthy bodies!",
+        ingredients: ["Fresh Cottage Cheese (Paneer)", "Ripe Tomatoes", "Onions", "Capsicum", "Turmeric", "Desi Butter"]
+      },
+      "Ragi_Upma": {
+        title: "RAGI UPMA",
+        accompaniment: "Served with Roasted Cashews & Fresh Curry Leaves",
+        image: "attachments/full dish photos/ragi upma/_ragi upma_ragi_upma_3.jpg_,.png",
+        description: "Warm millet upma with cashews. Filled with fiber and calcium to keep active minds bright and sharp!",
+        ingredients: ["Finger Millet Rava", "Roasted Cashews", "Mustard Seeds", "Green Peas", "Carrots", "Curry Leaves"]
+      },
+      "Salad": {
+        title: "FRESH GARDEN SALAD",
+        accompaniment: "Served with Lemon Vinaigrette & Crunchy Sprouts",
+        image: "attachments/full dish photos/Salad/_Salad_salad_1.jpg_,.png",
+        description: "Fresh colorful vegetables with crunchy sprouts! Loaded with vitamins and water to keep minds clear and fresh.",
+        ingredients: ["Crisp Cucumbers", "Cherry Tomatoes", "Carrots", "Pomegranate Seeds", "Moong Sprouts", "Lemon Juice"]
+      },
+      "Soups_with_Veggies": {
+        title: "VEGGIE HARVEST SOUP",
+        accompaniment: "Served with Toasted Whole Grain Garlic Bread",
+        image: "attachments/full dish photos/soups + veggies/_soups + veggies_soup_veggies_1.jpg_,.png",
+        description: "Warm vegetable soup loaded with vitamins A, C, and K. Helps fight off colds and keeps immunity high!",
+        ingredients: ["Sweet Corn", "Carrots", "French Beans", "Broccoli", "Black Pepper", "Garlic", "Whole Wheat Croutons"]
+      },
+      "Steamed_Sprouts": {
+        title: "STEAMED SPROUTS",
+        accompaniment: "Served with Lemon Juice, Pomegranate & Chaat Spice",
+        image: "attachments/full dish photos/steamed sprouts/_steamed sprouts_sprouts_3.jpg_,.png",
+        description: "Steamed sprouts with fresh lemon and pomegranate. Full of protein and vitamins for great digestion and health!",
+        ingredients: ["Sprouted Mung Beans", "Pomegranate Seeds", "Fresh Lemon Juice", "Chaat Masala", "Roasted Cumin"]
+      }
+    };
+
+    function switchDish(key) {
+      const data = breakfastDatabase[key];
+      if (!data) return;
+
+      document.getElementById('dishTitle').innerText = data.title;
+      document.getElementById('dishAccompaniment').innerHTML = `<span>🥗</span> ${data.accompaniment}`;
+      document.getElementById('foodImage').src = data.image;
+      document.getElementById('foodImage').alt = `Today's Breakfast - ${data.title}`;
+      const descEl = document.getElementById('dishDescription');
+      if (descEl) descEl.innerText = data.description;
+
+      const ingEl = document.getElementById('dishIngredients');
+      if (ingEl && data.ingredients && Array.isArray(data.ingredients)) {
+        ingEl.innerHTML = data.ingredients
+          .map(ing => `<span class="ingredient-pill">${ing}</span>`)
+          .join('');
+      }
+
+      const signoffEl = document.getElementById('signoffText');
+      if (signoffEl) {
+        signoffEl.innerText = data.signoff || "Have a Great Day! 🌟";
+      }
+    }
+
+    function setTheme(themeClass, btnElement) {
+      const poster = document.getElementById('posterCanvas');
+      poster.className = 'poster ' + themeClass;
+
+      // Update active state on theme buttons
+      document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+    }
+  </script>
+</body>
+
+</html>

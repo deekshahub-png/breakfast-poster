@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+
+# Personal files unrelated to the poster project
+ding dongg.html
+ding dongg_files/
+resume.png
+logo.png.jpe
+roll.jpe
+attachments/full dish photos/1st resume.jpeg
+attachments/full dish photos/rrr.jpeg
