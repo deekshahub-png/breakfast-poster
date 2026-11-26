@@ -1,117 +1,125 @@
 import os
-import mimetypes
 import json
+import uuid
+import mimetypes
+import urllib.request
+import urllib.error
 
-PHONE_NUMBER_ID = os.environ.get("WHATSAPP_PHONE_NUMBER_ID")
-ACCESS_TOKEN = os.environ.get("WHATSAPP_ACCESS_TOKEN")
 GRAPH_API_VERSION = os.environ.get("WHATSAPP_API_VERSION", "v21.0")
 
-def _require_credentials():
-    if not PHONE_NUMBER_ID or not ACCESS_TOKEN:
+
+def _credentials():
+    # Read at call time (not import time) so env changes / local .env loading are picked up.
+    phone_number_id = os.environ.get("WHATSAPP_PHONE_NUMBER_ID", "").strip()
+    access_token = os.environ.get("WHATSAPP_ACCESS_TOKEN", "").strip()
+    if not phone_number_id or not access_token:
         raise RuntimeError(
             "WHATSAPP_PHONE_NUMBER_ID and WHATSAPP_ACCESS_TOKEN must be set as environment variables."
         )
+    return phone_number_id, access_token
+
 
 def detect_mime_type(file_path: str) -> str:
-    """Detects MIME type from file extension or magic bytes."""
+    """Detects MIME type from the file extension. WhatsApp accepts image/jpeg and image/png."""
     mime, _ = mimetypes.guess_type(file_path)
-    if mime:
+    if mime in ("image/jpeg", "image/png", "image/webp"):
         return mime
-    
     ext = os.path.splitext(file_path)[1].lower()
+    if ext == ".png":
+        return "image/png"
+    if ext == ".webp":
+        return "image/webp"
+    return "image/jpeg"
 
-    if ext in ['.png']:
-        return 'image/png'
-    elif ext in ['.jpg', '.jpeg']:
-        return 'image/jpeg'
-    elif ext in ['.webp']:
-        return 'image/webp'
-    return 'image/jpeg'
+
+def _post(url: str, body: bytes, content_type: str) -> dict:
+    """POSTs to the Graph API and raises an error that includes Meta's error message."""
+    _, access_token = _credentials()
+    req = urllib.request.Request(
+        url,
+        data=body,
+        headers={"Authorization": f"Bearer {access_token}", "Content-Type": content_type},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", errors="replace")
+        try:
+            err = json.loads(detail).get("error", {})
+            extra = err.get("error_data", {}).get("details", "")
+            detail = f"{err.get('message')} (code {err.get('code')}{', ' + extra if extra else ''})"
+        except Exception:
+            pass
+        raise RuntimeError(f"WhatsApp API error {e.code}: {detail}") from None
+
 
 def upload_media(file_path: str) -> str:
-    """
-    Uploads media file to Meta WhatsApp Cloud API with correct MIME type detection.
-    Returns media_id.
-    """
+    """Uploads an image to the WhatsApp Cloud API and returns its media_id."""
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"Media file not found: {file_path}")
 
-    _require_credentials()
+    phone_number_id, _ = _credentials()
     mime_type = detect_mime_type(file_path)
-    url = f"https://graph.facebook.com/{GRAPH_API_VERSION}/{PHONE_NUMBER_ID}/media"
+    url = f"https://graph.facebook.com/{GRAPH_API_VERSION}/{phone_number_id}/media"
 
-    try:
-        import requests
-        headers = {
-            "Authorization": f"Bearer {ACCESS_TOKEN}"
-        }
-        with open(file_path, "rb") as f:
-            files = {
-                "file": (os.path.basename(file_path), f, mime_type),
-                "messaging_product": (None, "whatsapp"),
-                "type": (None, mime_type)
-            }
-            response = requests.post(url, headers=headers, files=files)
-        response.raise_for_status()
-        return response.json().get("id")
-    except ImportError:
-        import urllib.request
-        import uuid
+    boundary = f"----PosterBoundary{uuid.uuid4().hex}"
+    filename = os.path.basename(file_path).encode("ascii", "ignore").decode() or "poster.png"
+    with open(file_path, "rb") as f:
+        file_bytes = f.read()
 
-        boundary = f"----WebKitFormBoundary{uuid.uuid4().hex}"
-        headers = {
-            "Authorization": f"Bearer {ACCESS_TOKEN}",
-            "Content-Type": f"multipart/form-data; boundary={boundary}"
-        }
+    body = b"".join([
+        f"--{boundary}\r\nContent-Disposition: form-data; name=\"messaging_product\"\r\n\r\nwhatsapp\r\n".encode(),
+        f"--{boundary}\r\nContent-Disposition: form-data; name=\"type\"\r\n\r\n{mime_type}\r\n".encode(),
+        f"--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\n"
+        f"Content-Type: {mime_type}\r\n\r\n".encode(),
+        file_bytes,
+        f"\r\n--{boundary}--\r\n".encode(),
+    ])
+    data = _post(url, body, f"multipart/form-data; boundary={boundary}")
+    media_id = data.get("id")
+    if not media_id:
+        raise RuntimeError(f"Media upload returned no id: {data}")
+    return media_id
 
-        body = []
-        body.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"messaging_product\"\r\n\r\nwhatsapp\r\n".encode("utf-8"))
-        body.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"type\"\r\n\r\n{mime_type}\r\n".encode("utf-8"))
-        filename = os.path.basename(file_path)
-        body.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\nContent-Type: {mime_type}\r\n\r\n".encode("utf-8"))
-        with open(file_path, "rb") as f:
-            body.append(f.read())
-        body.append(f"\r\n--{boundary}--\r\n".encode("utf-8"))
 
-        payload_bytes = b"".join(body)
-        req = urllib.request.Request(url, data=payload_bytes, headers=headers, method="POST")
-        with urllib.request.urlopen(req) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-            return data.get("id")
+def _send(payload: dict) -> dict:
+    phone_number_id, _ = _credentials()
+    url = f"https://graph.facebook.com/{GRAPH_API_VERSION}/{phone_number_id}/messages"
+    return _post(url, json.dumps(payload).encode("utf-8"), "application/json")
+
 
 def send_image_message(to_number: str, media_id: str, caption: str = "") -> dict:
     """
-    Sends an image message using Meta WhatsApp Cloud API.
+    Sends a plain image message. NOTE: WhatsApp only delivers this if the recipient has
+    messaged the business number within the last 24 hours. Use send_template_image_message
+    for scheduled/broadcast sends.
     """
-    _require_credentials()
-    url = f"https://graph.facebook.com/{GRAPH_API_VERSION}/{PHONE_NUMBER_ID}/messages"
-
-    payload = {
+    return _send({
         "messaging_product": "whatsapp",
         "recipient_type": "individual",
         "to": to_number,
         "type": "image",
-        "image": {
-            "id": media_id,
-            "caption": caption
-        }
-    }
+        "image": {"id": media_id, "caption": caption},
+    })
 
-    try:
-        import requests
-        headers = {
-            "Authorization": f"Bearer {ACCESS_TOKEN}",
-            "Content-Type": "application/json"
-        }
-        response = requests.post(url, headers=headers, json=payload)
-        response.raise_for_status()
-        return response.json()
-    except ImportError:
-        import urllib.request
-        headers = {
-            "Authorization": f"Bearer {ACCESS_TOKEN}",
-            "Content-Type": "application/json"
-        }
-        req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers=headers, method="POST")
-        with urllib.request.urlopen(req) as resp:
-            return json.loads(resp.read().decode("utf-8"))
+
+def send_template_image_message(to_number: str, media_id: str, template_name: str,
+                                language: str = "en") -> dict:
+    """
+    Sends an approved message template whose header is an IMAGE, using the poster as the header.
+    Templates can be delivered at any time (no 24-hour window restriction).
+    """
+    return _send({
+        "messaging_product": "whatsapp",
+        "to": to_number,
+        "type": "template",
+        "template": {
+            "name": template_name,
+            "language": {"code": language},
+            "components": [
+                {"type": "header", "parameters": [{"type": "image", "image": {"id": media_id}}]}
+            ],
+        },
+    })

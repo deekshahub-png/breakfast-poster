@@ -280,6 +280,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
       width: 100%;
       padding-bottom: 12px;
       border-bottom: 2px dashed var(--color-border);
@@ -288,12 +289,13 @@
     .school-brand {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
+      min-width: 0;
     }
 
     .school-logo-badge {
-      width: 100px;
-      height: 100px;
+      width: 84px;
+      height: 84px;
       border-radius: 18px;
       background: var(--color-paper-card);
       border: 2.5px solid var(--color-accent-terracotta);
@@ -327,15 +329,14 @@
       letter-spacing: 0.5px;
       line-height: 1.15;
       text-transform: uppercase;
-      white-space: nowrap;
     }
 
     .school-tagline {
       font-family: var(--font-body);
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--color-accent-terracotta);
-      letter-spacing: 1.8px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
       margin-top: 2px;
     }
@@ -347,8 +348,10 @@
       gap: 10px;
       background: var(--color-paper-card);
       border: 1.5px solid var(--color-border-accent);
-      padding: 8px 18px;
+      padding: 8px 16px 8px 10px;
       border-radius: 50px;
+      flex-shrink: 0;
+      white-space: nowrap;
       box-shadow: var(--shadow-soft);
     }
 
@@ -728,10 +731,10 @@
           </div>
 
           <div class="greeting-badge">
-            <div class="greeting-sun">☀️</div>
+            <div class="greeting-sun">🌙</div>
             <div class="greeting-text">
               <span class="salutation">Good Evening!</span>
-              <span class="sub">Today's Special Breakfast</span>
+              <span class="sub">Tomorrow's Special Breakfast</span>
             </div>
           </div>
         </header>
@@ -760,7 +763,7 @@
               <!-- {{FOOD_IMAGE_PATH}} -->
               <img class="food-image" id="foodImage"
                 src="attachments/full dish photos/ragi dosa/_ragi dosa_ragi_dosa_1.jpg_.png"
-                alt="Today's Breakfast - Ragi Dosa">
+                alt="Tomorrow's Breakfast - Ragi Dosa">
             </div>
           </div>
 
@@ -800,7 +803,7 @@
 
           <!-- {{SIGNOFF}} -->
           <div class="signoff-stamp" id="dishSignoff">
-            <span class="signoff-text" id="signoffText">Have a Great Day! 🌟</span>
+            <span class="signoff-text" id="signoffText">Have a Lovely Evening! 🌙</span>
           </div>
         </footer>
 
@@ -841,7 +844,7 @@
         image: "attachments/full dish photos/idiyapam/_idiyapam_idiyapam_1.jpg_.png",
         description: "Soft steamed rice noodles with warm coconut stew. It is gentle on the tummy and very comforting!",
         ingredients: ["Steamed Rice Flour", "Fresh Coconut Milk", "Green Cardamom", "Garden Vegetables", "Curry Leaves"],
-        signoff: "Have a Great Day! 🌟"
+        signoff: "Have a Lovely Evening! 🌙"
       },
       "Drumstick_Stew": {
         title: "DRUMSTICK STEW",
@@ -922,7 +925,7 @@
       document.getElementById('dishTitle').innerText = data.title;
       document.getElementById('dishAccompaniment').innerHTML = `<span>🥗</span> ${data.accompaniment}`;
       document.getElementById('foodImage').src = data.image;
-      document.getElementById('foodImage').alt = `Today's Breakfast - ${data.title}`;
+      document.getElementById('foodImage').alt = `Tomorrow's Breakfast - ${data.title}`;
       const descEl = document.getElementById('dishDescription');
       if (descEl) descEl.innerText = data.description;
 
@@ -935,7 +938,7 @@
 
       const signoffEl = document.getElementById('signoffText');
       if (signoffEl) {
-        signoffEl.innerText = data.signoff || "Have a Great Day! 🌟";
+        signoffEl.innerText = data.signoff || "Have a Lovely Evening! 🌙";
       }
     }
 
@@ -949,6 +952,26 @@
         btnElement.classList.add('active');
       }
     }
+
+    // Render mode for render_posters.py: ?dish=<key>&render=1 shows only the poster at the top-left
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const dishKey = params.get('dish');
+      if (dishKey && breakfastDatabase[dishKey]) {
+        switchDish(dishKey);
+        const select = document.getElementById('dishSelect');
+        if (select) select.value = dishKey;
+      }
+      if (params.get('render') === '1') {
+        document.querySelector('.toolbar').style.display = 'none';
+        document.body.style.padding = '0';
+        document.body.style.alignItems = 'flex-start';
+        const stage = document.querySelector('.stage-wrapper');
+        stage.style.padding = '0';
+        stage.style.justifyContent = 'flex-start';
+        document.getElementById('posterCanvas').style.boxShadow = 'none';
+      }
+    })();
   </script>
 </body>
 

@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/*.py": {
+      "includeFiles": "{posters/**,whatsapp_sender.py,api/daily_poster.py}"
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/daily_poster",
+      "schedule": "30 12 * * *"
+    }
+  ]
+}

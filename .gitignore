@@ -9,3 +9,9 @@ logo.png.jpe
 roll.jpe
 attachments/full dish photos/1st resume.jpeg
 attachments/full dish photos/rrr.jpeg
+
+# Local screenshots
+Screenshot*.png
+
+.vercel
+.env*
