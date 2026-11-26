@@ -90,6 +90,31 @@ def _send(payload: dict) -> dict:
     return _post(url, json.dumps(payload).encode("utf-8"), "application/json")
 
 
+def register_phone_number(pin: str) -> dict:
+    """Registers the business phone number with the Cloud API (sets the two-step PIN if none exists)."""
+    phone_number_id, access_token = _credentials()
+    base = f"https://graph.facebook.com/{GRAPH_API_VERSION}/{phone_number_id}"
+    result = {}
+    try:
+        req = urllib.request.Request(
+            base + "?fields=display_phone_number,verified_name,code_verification_status,status,platform_type",
+            headers={"Authorization": f"Bearer {access_token}"},
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            result["number"] = json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        result["number_error"] = e.read().decode("utf-8", errors="replace")
+    try:
+        result["register"] = _post(
+            base + "/register",
+            json.dumps({"messaging_product": "whatsapp", "pin": pin}).encode("utf-8"),
+            "application/json",
+        )
+    except Exception as e:
+        result["register_error"] = str(e)
+    return result
+
+
 def send_image_message(to_number: str, media_id: str, caption: str = "") -> dict:
     """
     Sends a plain image message. NOTE: WhatsApp only delivers this if the recipient has

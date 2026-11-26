@@ -164,6 +164,15 @@ class handler(BaseHTTPRequestHandler):
                 return self._reply(401, {"status": "error", "message": "Unauthorized"})
 
             query = parse_qs(urlparse(self.path).query)
+
+            # One-time setup: ?action=register&pin=<WHATSAPP_PIN> registers the number with the Cloud API
+            if (query.get("action") or [""])[0] == "register":
+                pin = os.environ.get("WHATSAPP_PIN", "")
+                if not pin or (query.get("pin") or [""])[0] != pin:
+                    return self._reply(403, {"status": "error", "message": "Wrong or missing pin"})
+                from whatsapp_sender import register_phone_number
+                return self._reply(200, register_phone_number(pin))
+
             dish = resolve_dish(query)
             recipients = get_recipients(os.environ.get("RECIPIENT_PHONE_NUMBER", ""))
 
